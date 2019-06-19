@@ -98,7 +98,7 @@ def plot_response(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                      fontweight='bold')
         ax.legend(loc='upper right', shadow=False, frameon=False)
 
-    if highlight_decile != False:
+    if highlight_decile:
 
         if highlight_decile not in np.linspace(1, 10, num=10).tolist():
             raise TypeError('Invalid value for highlight_decile parameter. It must be an int value between 1 and 10')
@@ -120,7 +120,7 @@ def plot_response(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                             # fc = 'yellow', alpha = 0.3),
                             arrowprops=dict(arrowstyle='->', color='black'))
                 text += 'When we select decile %d from model %s in dataset %s the percentage of %s cases in the selection is %d' % (
-                highlight_decile, models[0], datasets[0], classes[0], int(cumpct[0] * 100)) + '%.\n'
+                    highlight_decile, models[0], datasets[0], classes[0], int(cumpct[0] * 100)) + '%.\n'
             elif scope == "compare_datasets":
                 for col, i in enumerate(datasets):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['dataset_label', 'pct']]
@@ -135,7 +135,7 @@ def plot_response(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                                 # fc = 'yellow', alpha = 0.3),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select decile %d from model %s in dataset %s the percentage of %s cases in the selection is %d' % (
-                    highlight_decile, models[0], datasets[col], classes[0], int(cumpct[0] * 100)) + '%.\n'
+                        highlight_decile, models[0], datasets[col], classes[0], int(cumpct[0] * 100)) + '%.\n'
             elif scope == "compare_models":
                 for col, i in enumerate(models):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['model_label', 'pct']]
@@ -150,7 +150,7 @@ def plot_response(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                                 # fc = 'yellow', alpha = 0.3),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select decile %d from model %s in dataset %s the percentage of %s cases in the selection is %d' % (
-                    highlight_decile, models[col], datasets[0], classes[0], int(cumpct[0] * 100)) + '%.\n'
+                        highlight_decile, models[col], datasets[0], classes[0], int(cumpct[0] * 100)) + '%.\n'
             else:  # compare targetvalues
                 for col, i in enumerate(classes):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['target_class', 'pct']]
@@ -165,13 +165,13 @@ def plot_response(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                                 # fc = 'yellow', alpha = 0.3),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select decile %d from model %s in dataset %s the percentage of %s cases in the selection is %d' % (
-                    highlight_decile, models[0], datasets[0], classes[col], int(cumpct[0] * 100)) + '%.\n'
+                        highlight_decile, models[0], datasets[0], classes[col], int(cumpct[0] * 100)) + '%.\n'
             if highlight_how in ('text', 'plot_text'):
                 print(text[:-1])
             if highlight_how in ('plot', 'plot_text'):
                 fig.text(.15, -0.001, text[:-1], ha='left')
 
-    if save_fig == True:
+    if save_fig:
         if not save_fig_filename:
             location = '%s/Response plot.png' % os.getcwd()
             plt.savefig(location, dpi=300)
@@ -273,7 +273,7 @@ def plot_cumresponse(plot_input, save_fig=True, save_fig_filename='', highlight_
         ax.set_title("Comparing target classes & dataset: %s & model: %s" % (datasets[0], models[0]), fontweight='bold')
         ax.legend(loc='upper right', shadow=False, frameon=False)
 
-    if highlight_decile != False:
+    if highlight_decile:
 
         if highlight_decile not in np.linspace(1, 10, num=10).tolist():
             raise TypeError('Invalid value for highlight_decile parameter. It must be an int value between 1 and 10')
@@ -294,7 +294,7 @@ def plot_cumresponse(plot_input, save_fig=True, save_fig_filename='', highlight_
                             bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[0]),
                             arrowprops=dict(arrowstyle='->', color='black'))
                 text += 'When we select deciles 1 until %d according to model %s in dataset %s the percentage of %s cases in the selection is %d' % (
-                highlight_decile, models[0], datasets[0], classes[0], int(cumpct[0] * 100)) + '%.\n'
+                    highlight_decile, models[0], datasets[0], classes[0], int(cumpct[0] * 100)) + '%.\n'
             elif scope == "compare_datasets":
                 for col, i in enumerate(datasets):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['dataset_label', 'cumpct']]
@@ -308,7 +308,7 @@ def plot_cumresponse(plot_input, save_fig=True, save_fig_filename='', highlight_
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select deciles 1 until %d according to model %s in dataset %s the percentage of %s cases in the selection is %d' % (
-                    highlight_decile, models[0], datasets[col], classes[0], int(cumpct[0] * 100)) + '%.\n'
+                        highlight_decile, models[0], datasets[col], classes[0], int(cumpct[0] * 100)) + '%.\n'
             elif scope == "compare_models":
                 for col, i in enumerate(models):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['model_label', 'cumpct']]
@@ -322,7 +322,7 @@ def plot_cumresponse(plot_input, save_fig=True, save_fig_filename='', highlight_
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select deciles 1 until %d according to model %s in dataset %s the percentage of %s cases in the selection is %d' % (
-                    highlight_decile, models[col], datasets[0], classes[0], int(cumpct[0] * 100)) + '%.\n'
+                        highlight_decile, models[col], datasets[0], classes[0], int(cumpct[0] * 100)) + '%.\n'
             else:  # compare targetvalues
                 for col, i in enumerate(classes):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['target_class', 'cumpct']]
@@ -336,14 +336,14 @@ def plot_cumresponse(plot_input, save_fig=True, save_fig_filename='', highlight_
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select deciles 1 until %d according to model %s in dataset %s the percentage of %s cases in the selection is %d' % (
-                    highlight_decile, models[0], datasets[0], classes[col], int(cumpct[0] * 100)) + '%.\n'
+                        highlight_decile, models[0], datasets[0], classes[col], int(cumpct[0] * 100)) + '%.\n'
 
             if highlight_how in ('text', 'plot_text'):
                 print(text[:-1])
             if highlight_how in ('plot', 'plot_text'):
                 fig.text(.15, -0.001, text[:-1], ha='left')
 
-    if save_fig == True:
+    if save_fig:
         if not save_fig_filename:
             location = '%s/Cumulative response plot.png' % os.getcwd()
             plt.savefig(location, dpi=300)
@@ -442,7 +442,7 @@ def plot_cumlift(plot_input, save_fig=True, save_fig_filename='', highlight_deci
                      fontweight='bold')
         ax.legend(loc='upper right', shadow=False, frameon=False)
 
-    if highlight_decile != False:
+    if highlight_decile:
 
         if highlight_decile not in np.linspace(1, 10, num=10).tolist():
             raise TypeError('Invalid value for highlight_decile parameter. It must be an int value between 1 and 10')
@@ -463,8 +463,8 @@ def plot_cumlift(plot_input, save_fig=True, save_fig_filename='', highlight_deci
                             bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[0]),
                             arrowprops=dict(arrowstyle='->', color='black'))
                 text += 'When we select %d' % (
-                            highlight_decile * 10) + '%' + ' with the highest probability according to model %s in dataset %s, this selection for target class %s is %s times than selecting without a model.\n' % (
-                        models[0], datasets[0], classes[0], str(round(cumpct[0], 2)))
+                        highlight_decile * 10) + '%' + ' with the highest probability according to model %s in dataset %s, this selection for target class %s is %s times than selecting without a model.\n' % (
+                            models[0], datasets[0], classes[0], str(round(cumpct[0], 2)))
             elif scope == "compare_datasets":
                 for col, i in enumerate(datasets):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['dataset_label', 'cumlift']]
@@ -478,8 +478,8 @@ def plot_cumlift(plot_input, save_fig=True, save_fig_filename='', highlight_deci
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select %d' % (
-                                highlight_decile * 10) + '%' + ' with the highest probability according to model %s in dataset %s, this selection for target class %s is %s times than selecting without a model.\n' % (
-                            models[0], datasets[col], classes[0], str(round(cumpct[0], 2)))
+                            highlight_decile * 10) + '%' + ' with the highest probability according to model %s in dataset %s, this selection for target class %s is %s times than selecting without a model.\n' % (
+                                models[0], datasets[col], classes[0], str(round(cumpct[0], 2)))
             elif scope == "compare_models":
                 for col, i in enumerate(models):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['model_label', 'cumlift']]
@@ -493,8 +493,8 @@ def plot_cumlift(plot_input, save_fig=True, save_fig_filename='', highlight_deci
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select %d' % (
-                                highlight_decile * 10) + '%' + ' with the highest probability according to model %s in dataset %s, this selection for target class %s is %s times than selecting without a model.\n' % (
-                            models[col], datasets[0], classes[0], str(round(cumpct[0], 2)))
+                            highlight_decile * 10) + '%' + ' with the highest probability according to model %s in dataset %s, this selection for target class %s is %s times than selecting without a model.\n' % (
+                                models[col], datasets[0], classes[0], str(round(cumpct[0], 2)))
             else:  # compare targetvalues
                 for col, i in enumerate(classes):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['target_class', 'cumlift']]
@@ -508,15 +508,15 @@ def plot_cumlift(plot_input, save_fig=True, save_fig_filename='', highlight_deci
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select %d' % (
-                                highlight_decile * 10) + '%' + ' with the highest probability according to model %s in dataset %s, this selection for target class %s is %s times than selecting without a model.\n' % (
-                            models[0], datasets[0], classes[col], str(round(cumpct[0], 2)))
+                            highlight_decile * 10) + '%' + ' with the highest probability according to model %s in dataset %s, this selection for target class %s is %s times than selecting without a model.\n' % (
+                                models[0], datasets[0], classes[col], str(round(cumpct[0], 2)))
 
             if highlight_how in ('text', 'plot_text'):
                 print(text[:-1])
             if highlight_how in ('plot', 'plot_text'):
                 fig.text(.15, -0.001, text[:-1], ha='left')
 
-    if save_fig == True:
+    if save_fig:
         if not save_fig_filename:
             location = '%s/Cumulative lift plot.png' % os.getcwd()
             plt.savefig(location, dpi=300)
@@ -621,7 +621,7 @@ def plot_cumgains(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                      fontweight='bold')
         ax.legend(loc='lower right', shadow=False, frameon=False)
 
-    if highlight_decile != False:
+    if highlight_decile:
 
         if highlight_decile not in np.linspace(1, 10, num=10).tolist():
             raise TypeError('Invalid value for highlight_decile parameter. It must be an int value between 1 and 10')
@@ -642,9 +642,9 @@ def plot_cumgains(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                             bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[0]),
                             arrowprops=dict(arrowstyle='->', color='black'))
                 text += 'When we select %d' % (
-                            highlight_decile * 10) + '%' + ' with the highest probability according to model %s, this selection holds %d' % (
-                        models[0], int(cumpct[0] * 100)) + '%' + ' of all %s cases in dataset %s.\n' % (
-                        classes[0], datasets[0])
+                        highlight_decile * 10) + '%' + ' with the highest probability according to model %s, this selection holds %d' % (
+                            models[0], int(cumpct[0] * 100)) + '%' + ' of all %s cases in dataset %s.\n' % (
+                            classes[0], datasets[0])
             elif scope == "compare_datasets":
                 for col, i in enumerate(datasets):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['dataset_label', 'cumgain']]
@@ -658,9 +658,9 @@ def plot_cumgains(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select %d' % (
-                                highlight_decile * 10) + '%' + ' with the highest probability according to model %s, this selection holds %d' % (
-                            models[0], int(cumpct[0] * 100)) + '%' + ' of all %s cases in dataset %s.\n' % (
-                            classes[0], datasets[col])
+                            highlight_decile * 10) + '%' + ' with the highest probability according to model %s, this selection holds %d' % (
+                                models[0], int(cumpct[0] * 100)) + '%' + ' of all %s cases in dataset %s.\n' % (
+                                classes[0], datasets[col])
             elif scope == "compare_models":
                 for col, i in enumerate(models):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['model_label', 'cumgain']]
@@ -674,9 +674,9 @@ def plot_cumgains(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select %d' % (
-                                highlight_decile * 10) + '%' + ' with the highest probability according to model %s, this selection holds %d' % (
-                            models[col], int(cumpct[0] * 100)) + '%' + ' of all %s cases in dataset %s.\n' % (
-                            classes[0], datasets[0])
+                            highlight_decile * 10) + '%' + ' with the highest probability according to model %s, this selection holds %d' % (
+                                models[col], int(cumpct[0] * 100)) + '%' + ' of all %s cases in dataset %s.\n' % (
+                                classes[0], datasets[0])
             else:  # compare targetvalues
                 for col, i in enumerate(classes):
                     cumpct = plot_input.loc[plot_input.decile == highlight_decile, ['target_class', 'cumgain']]
@@ -690,16 +690,16 @@ def plot_cumgains(plot_input, save_fig=True, save_fig_filename='', highlight_dec
                                 bbox=dict(boxstyle='round, pad = 0.4', alpha=1, fc=colors[col]),
                                 arrowprops=dict(arrowstyle='->', color='black'))
                     text += 'When we select %d' % (
-                                highlight_decile * 10) + '%' + ' with the highest probability according to model %s, this selection holds %d' % (
-                            models[0], int(cumpct[0] * 100)) + '%' + ' of all %s cases in dataset %s.\n' % (
-                            classes[col], datasets[0])
+                            highlight_decile * 10) + '%' + ' with the highest probability according to model %s, this selection holds %d' % (
+                                models[0], int(cumpct[0] * 100)) + '%' + ' of all %s cases in dataset %s.\n' % (
+                                classes[col], datasets[0])
 
             if highlight_how in ('text', 'plot_text'):
                 print(text[:-1])
             if highlight_how in ('plot', 'plot_text'):
                 fig.text(.15, -0.001, text[:-1], ha='left')
 
-    if save_fig == True:
+    if save_fig:
         if not save_fig_filename:
             location = '%s/Cumulative gains plot.png' % os.getcwd()
             plt.savefig(location, dpi=300)
@@ -940,7 +940,7 @@ def check_input(input_list, check_list, check=''):
         else:
             raise ValueError(
                 'Invalid input for parameter %s. The input for %s is 1 or more elements from %s and put in a list.' % (
-                check, check, check_list))
+                    check, check, check_list))
     return list(input_list)
 
 
@@ -1043,15 +1043,15 @@ class modelplotpy(object):
         ------
         ValueError: If there is no match with the complete list or the input list again
         """
-        if (len(self.models) == len(self.model_labels)) == False:
+        if not (len(self.models) == len(self.model_labels)):
             raise ValueError(
                 'The number of models and the their description model_name must be equal. The number of model = %s and model_name = %s.' % (
-                len(self.model), len(self.model_name)))
+                    len(self.model), len(self.model_name)))
 
-        if (len(self.feature_data) == len(self.label_data) == len(self.dataset_labels)) == False:
+        if not (len(self.feature_data) == len(self.label_data) == len(self.dataset_labels)):
             raise ValueError(
                 'The number of datasets in feature_data and label_data and their description pairs must be equal. The number of datasets in feature_data = %s, label_data = %s and description = %s.' % (
-                len(self.feature_data), len(self.label_data), len(self.description)))
+                    len(self.feature_data), len(self.label_data), len(self.description)))
 
         final = pd.DataFrame()
         for i in range(len(self.models)):
@@ -1142,17 +1142,17 @@ class modelplotpy(object):
                     deciles_agg['decile'] = range(1, 11, 1)
                     relvars = ['dec_%s' % j, 'all']
                     deciles_agg['tot'] = scores_and_deciles[(scores_and_deciles.dataset_label == k) & (
-                                scores_and_deciles.model_label == self.model_labels[i])][relvars].groupby(
+                            scores_and_deciles.model_label == self.model_labels[i])][relvars].groupby(
                         'dec_%s' % j).agg('sum')
                     scores_and_deciles['pos'] = scores_and_deciles.target_class == j
                     relvars = ['dec_%s' % j, 'pos']
                     deciles_agg['pos'] = scores_and_deciles[(scores_and_deciles.dataset_label == k) & (
-                                scores_and_deciles.model_label == self.model_labels[i])][relvars].groupby(
+                            scores_and_deciles.model_label == self.model_labels[i])][relvars].groupby(
                         'dec_%s' % j).agg('sum')
                     scores_and_deciles['neg'] = scores_and_deciles.target_class != j
                     relvars = ['dec_%s' % j, 'neg']
                     deciles_agg['neg'] = scores_and_deciles[(scores_and_deciles.dataset_label == k) & (
-                                scores_and_deciles.model_label == self.model_labels[i])][relvars].groupby(
+                            scores_and_deciles.model_label == self.model_labels[i])][relvars].groupby(
                         'dec_%s' % j).agg('sum')
                     deciles_agg['pct'] = deciles_agg.pos / deciles_agg.tot
                     deciles_agg['postot'] = deciles_agg.pos.sum()
@@ -1169,7 +1169,7 @@ class modelplotpy(object):
                     deciles_agg['pct_ref'] = deciles_agg.postot / deciles_agg.tottot
                     deciles_agg['gain_opt'] = 1.0
                     deciles_agg.loc[(deciles_agg.cumtot / deciles_agg.postot) <= 1.0, 'gain_opt'] = (
-                                deciles_agg.cumtot / deciles_agg.postot)
+                            deciles_agg.cumtot / deciles_agg.postot)
                     deciles_agg['lift'] = deciles_agg.pct / (deciles_agg.postot / deciles_agg.tottot)
                     deciles_agg['cumlift'] = deciles_agg.cumpct / (deciles_agg.postot / deciles_agg.tottot)
                     deciles_agg['cumlift_ref'] = 1
@@ -1276,7 +1276,7 @@ class modelplotpy(object):
                 (deciles_aggregate.dataset_label == select_dataset_label[0]) &
                 (deciles_aggregate.target_class == select_targetclass[0])]
             print('Target class %s, dataset %s and model %s.' % (
-            select_targetclass[0], select_dataset_label[0], select_model_label[0]))
+                select_targetclass[0], select_dataset_label[0], select_model_label[0]))
         elif scope == 'compare_models':
             print('compare models')
             if len(select_model_label) >= 2:
